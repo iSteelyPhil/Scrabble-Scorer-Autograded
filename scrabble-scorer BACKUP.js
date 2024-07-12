@@ -11,7 +11,6 @@ const oldPointStructure = {
   8: ['J', 'X'],
   10: ['Q', 'Z']
 };
-oldPointStructure[0] = '';
 
 function oldScrabbleScorer(word) {
 	word = word.toUpperCase();
@@ -125,7 +124,7 @@ function transform(oldPointStructure) {
      for (let i = 0; i < oldPointStructure[item].length; i++) {
        newObj[oldPointStructure[item][i].toLowerCase()] = Number(item);
      }
-     
+     newObj[' '] = 0;
    }
    return newObj;
  };
