@@ -111,19 +111,24 @@ const scoringAlgorithms = [
    } 
 ];
 
+
 function scorerPrompt(word) {
    console.log("Which scoring algorithm would you like to use?");
    console.log("\n");
    console.log("0 - Simple: One point per character\n1 - Vowel Bonus: Vowels are worth 3 points\n2 - Scrabble: Uses scrabble point system");
    let choice = Number(input.question("Enter 0, 1, or 2: \n"));
-      if(choice === 0 || choice ===1 || choice === 2){
+      try{
          scoreSystem = scoringAlgorithms[choice];
-         console.log(`Score for ${word} : ${scoreSystem.scorerFunction(word)}`)
-      }else{
-         console.log("ERROR: Please enter either '0', '1', or '2'\n")
-         scorerPrompt(word)
+         console.log(`Score for ${word} : ${scoreSystem.scorerFunction(word)}`);
+      }catch(e){
+         /* throw new TypeError("Input must be 0,1 or 2!") */
+         console.log("ERROR: input false, automatiucally choosing Scrabble System\n");
+         scoreSystem = scoringAlgorithms[2];
+         console.log(`Score for ${word} : ${scoreSystem.scorerFunction(word)}`);
+      
       }
-};
+   };
+
 
 function transform(oldPointStructure) {
    let newObj = {};
