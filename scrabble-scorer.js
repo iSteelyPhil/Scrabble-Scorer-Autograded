@@ -11,6 +11,7 @@ const oldPointStructure = {
   8: ['J', 'X'],
   10: ['Q', 'Z']
 };
+
 oldPointStructure[0] = '';
 
 function oldScrabbleScorer(word) {
@@ -50,8 +51,14 @@ let scrabbleScorer = function(word){
 // don't change the names or your program won't work as expected. //
 
 function initialPrompt() {
-   let word = input.question("Let's play some scrabble!\nEnter a word to score: ")
-   /* console.log(oldScrabbleScorer(word)); */
+   let allowedCharacters = "abcdefghijklmnopqrstuvwxyz ";
+   let word = input.question("Let's play some scrabble!\nEnter a word to score: ").toLowerCase()
+   for (let i = 0; i < word.length; i++) {
+    if(!allowedCharacters.includes(word[i])){
+      console.log("ERROR: Invalid character! Please only use characters from the english alphabet. RESETTING!")
+      return initialPrompt()
+    }
+   }
    return word;
 };
 
@@ -110,8 +117,8 @@ function scorerPrompt(word) {
    console.log("0 - Simple: One point per character\n1 - Vowel Bonus: Vowels are worth 3 points\n2 - Scrabble: Uses scrabble point system");
    let choice = Number(input.question("Enter 0, 1, or 2: \n"));
       if(choice === 0 || choice ===1 || choice === 2){
-   scoreSystem = scoringAlgorithms[choice];
-   return console.log(`Score for ${word} : ${scoreSystem.scorerFunction(word)}`)
+         scoreSystem = scoringAlgorithms[choice];
+         console.log(`Score for ${word} : ${scoreSystem.scorerFunction(word)}`)
       }else{
          console.log("ERROR: Please enter either '0', '1', or '2'\n")
          scorerPrompt(word)
